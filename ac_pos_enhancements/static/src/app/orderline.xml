@@ -5,16 +5,16 @@
        t-inherit="point_of_sale.Orderline"
        t-inherit-mode="extension">
 
-        <!-- Prepend line index (1, 2, 3, …) before the product name -->
-        <xpath expr="//span[hasclass('text-wrap')]/t[1]" position="before">
-            <span t-if="vals.lineIndex" class="line-index fw-bolder me-1 text-muted">
+        <!-- Line index (1, 2, 3, …) — inserted as a sibling BEFORE the qty span -->
+        <xpath expr="//span[hasclass('qty')]" position="before">
+            <span t-if="vals.lineIndex" class="ac-line-index fw-bolder px-1 text-muted">
                 <t t-esc="vals.lineIndex"/>.
             </span>
         </xpath>
 
-        <!-- Show the original catalog price when the cashier has manually changed the price -->
+        <!-- Show original catalog price when price was manually changed -->
         <xpath expr="//ul[hasclass('info-list')]" position="inside">
-            <li t-if="vals.isPriceModified" class="original-price-line text-warning">
+            <li t-if="vals.isPriceModified" class="ac-original-price text-warning">
                 <i class="fa fa-info-circle me-1"/>
                 <em>Original:</em>
                 <strong><t t-esc="vals.originalUnitPrice"/></strong>
